@@ -1,0 +1,87 @@
+#  Documentation
+
+## Introduction
+
+The project is written using Node.js and uses the Puppeteer library for web scraping.
+
+## Table of Contents
+
+1. [Pre-requisites](#pre-requisites)
+2. [Project Structure](#project-structure)
+3. [Modules Explained](#modules-explained)
+    - [main.mjs](#mainmjs)
+    - [worker.mjs](#workermjs)
+    - [forumScraper.mjs](#forumscrapermjs)
+    - [csvBuilder.mjs](#csvbuildermjs)
+4. [Running the Code](#running-the-code)
+5. [Troubleshooting](#troubleshooting)
+
+## Pre-requisites
+
+1. Basic knowledge of JavaScript and Node.js
+2. Node.js installed on your computer
+3. A text editor like VSCode, Sublime Text, or any of your choice
+
+## Project Structure
+
+- **main.mjs**: The entry point of the application. Handles worker thread creation and management.
+- **worker.mjs**: Responsible for scraping various types of links from forum pages.
+- **forumScraper.mjs**: Responsible for scraping forum posts and views.
+- **csvBuilder.mjs**: A utility for creating and saving CSV files.
+
+## Modules Explained
+
+### main.mjs
+
+This is the main file that starts the application. Here's how it works:
+
+1. **Import Dependencies**: Imports necessary modules and packages.
+2. **Initialize Variables**: Calculates how many CPU cores are available and how many pages each worker should handle.
+3. **Create Workers**: Creates worker threads based on the number of CPU cores.
+4. **Event Listeners**: Listens for messages, errors, and exit codes from worker threads.
+5. **Wait for Workers**: Waits for all workers to complete their tasks before moving on to the next set of workers for forum scraping.
+
+### worker.mjs
+
+Here is where the actual scraping for links begins:
+
+1. **Worker Data**: Fetches `startPage` and `endPage` from the worker data.
+2. **Initialize Puppeteer**: Launches a new browser window.
+3. **Loop Through Pages**: Iterates through each page to scrape links.
+4. **Save to CSV**: Uses the `CSVBuilder` class to save the scraped links into CSV files.
+5. **Send Message**: Sends a message back to the main thread about the saved files.
+
+### forumScraper.mjs
+
+This module takes care of scraping individual forum threads:
+
+1. **Read CSV**: Reads the list of forum links from a CSV file.
+2. **Scrape Each Forum**: Loops through each forum link to scrape data.
+3. **Save to CSV**: Like in `worker.mjs`, this also uses the `CSVBuilder` class to save the scraped data.
+4. **Send Message**: Sends a message back to the main thread about the saved files.
+
+### csvBuilder.mjs
+
+This is a utility class to help with CSV file operations:
+
+1. **Constructor**: Takes an optional header row.
+2. **addRow**: Adds a new row to the CSV content.
+3. **build**: Compiles the CSV content.
+4. **saveToFile**: Saves the CSV content to a file and returns the file path.
+
+## Running the Code
+
+1. Open a terminal and navigate to the project directory.
+2. Run `npm install` to install all dependencies.
+3. Run `node main.mjs` to start the scraper.
+
+## Troubleshooting
+
+If you encounter issues, check the following:
+
+1. Make sure Node.js is properly installed.
+2. Check if all dependencies are installed.
+3. Look at the log messages for any errors or clues.
+
+---
+

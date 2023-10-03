@@ -1,0 +1,8 @@
+{
+  "name": "Scrape",
+  "version": "1.0.0",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "puppeteer": "^21.3.6"
+  }
+}
