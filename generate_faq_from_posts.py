@@ -3,7 +3,7 @@ import pandas as pd
 import openai
 
 # Load API key
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = ""
 
 def read_csv_files(directory_path):
     data_frames = []
