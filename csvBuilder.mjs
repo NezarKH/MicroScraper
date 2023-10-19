@@ -13,11 +13,22 @@ class CSVBuilder {
         }
     }
 
+    // Function to escape special characters in CSV
+    escapeCSV(value) {
+        if (value.includes(',') || value.includes('\n') || value.includes('"')) {
+            return `"${value.replace(/"/g, '""')}"`;
+        }
+        return value;
+    }
+
     addRow(row) {
-        this.rows.push(row);
+        // Escape values in the row before adding it
+        const escapedRow = row.map(this.escapeCSV);
+        this.rows.push(escapedRow);
     }
 
     build() {
+        // Convert rows to CSV string
         return this.rows.map(row => row.join(',')).join('\n');
     }
 
