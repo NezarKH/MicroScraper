@@ -1,74 +1,88 @@
-# Forum Scraper
+Forum Scraper and Analyzer
 
-## Overview
+Overview
 
-This project is designed to scrape forum data from a website using Puppeteer and Node.js. It employs a multi-threaded approach to improve efficiency by parallelizing tasks across available CPU cores.
+This project is designed to scrape and analyze forum data. It utilizes a combination of Node.js and Python and leverages Puppeteer for web scraping. The project employs a multi-threaded approach to improve efficiency by parallelizing tasks across available CPU cores. It also includes machine learning algorithms for text analysis, such as sentiment analysis and FAQ generation.
 
-## Features
+Features
 
-- **Multi-threaded scraping**: Utilizes all available CPU cores for concurrent scraping.
-- **Modular Design**: Each part of the scraper is implemented in separate modules for easy maintenance and extensibility.
-- **CSV Output**: The scraped data is stored in CSV files for further analysis or use.
+- Multi-threaded scraping: Utilizes all available CPU cores for concurrent scraping.
+- Modular Design: Each part of the scraper is implemented in separate modules for easy maintenance and extensibility.
+- Data Analysis: Includes sentiment analysis and FAQ generation.
+- CSV Output: The scraped data is stored in CSV files for further analysis or use.
 
-## Modules
+Modules
 
-### main.mjs
+Main Modules
+
+main.mjs
 
 This is the main driver script that initiates and manages worker threads for scraping.
 
-#### Important Functions:
+Important Functions:
+- Worker(): Initializes new worker threads.
+- Promise.all(): Waits for all worker threads to complete.
 
-- `Worker()`: Creates a new Worker thread.
-- `Promise.all()`: Waits for all worker threads to complete their tasks.
+worker.mjs
 
-### worker.mjs
+Handles the scraping of various forum pages, including profile, sub-forum, and topic links.
 
-This module is responsible for scraping profile, sub-forum, and topic links from forum pages.
+Important Functions:
+- puppeteer.launch(): Launches a browser window for scraping.
+- page.goto(): Navigates to the specific forum page.
 
-#### Important Functions:
+forumScraper.mjs
 
-- `puppeteer.launch()`: Launches a new browser window.
-- `page.goto()`: Navigates to a specified URL.
+Responsible for scraping specific data such as views and post contents from individual forum threads.
 
-### forumScraper.mjs
+Important Functions:
+- readCSV(): Reads forum links from a CSV file.
+- scrapeForum(): Scrapes data like views and posts.
 
-This module is responsible for scraping specific data such as views and post contents from individual forum threads.
+csvBuilder.mjs
 
-#### Important Functions:
+A utility module for creating and saving CSV files efficiently.
 
-- `readCSV()`: Reads forum links from a CSV file.
-- `scrapeForum()`: Scrapes forum data like views and posts.
+Important Functions:
+- addRow(): Adds a new row to the CSV.
+- build(): Constructs the CSV content.
+- saveToFile(): Saves the CSV to a file.
 
-### csvBuilder.mjs
+Additional Python Modules
 
-A utility class for building and saving CSV files.
+generate_faq_from_posts.py
 
-#### Important Functions:
+Generates FAQs from scraped forum posts.
 
-- `addRow()`: Adds a new row to the CSV.
-- `build()`: Builds the CSV content.
-- `saveToFile()`: Saves the CSV content to a file.
+static_micro_crawl.py
 
-## Setup & Running
+Scrapes and analyzes text from static websites.
 
-1. Clone this repository.
-2. Run `npm install` to install all dependencies.
-3. Run `node main.mjs` to start the scraper.
+sentiment_analysis.py
 
-## Logging
+Performs sentiment analysis on scraped data. (File could not be read for further details)
 
-- Logging is implemented to monitor the progress and state of each worker thread.
-- Each log message specifies which pages are currently being scraped by a worker, making it easier to debug and understand what the scraper is doing at any given moment.
+Setup & Running
 
-## Dependencies
+1. Clone the repository.
+2. Run npm install for Node.js dependencies.
+3. Optional: Set up a Python environment and install Python dependencies.
+4. Run node main.mjs to start the Node.js scraper.
+5. For Python modules, run the respective Python scripts.
+
+Logging
+
+- Detailed logging is implemented to monitor the scraping and analysis processes.
+- Each log message specifies which pages are currently being scraped, making it easier to debug and understand the project's status.
+
+Dependencies
 
 - Node.js
 - Puppeteer
 - csv-parser
-- worker_threads (Node.js core module)
+- Python 3.x
+- Various Python libraries for data analysis
 
-## Author
+Author
 
 Khabiry
-
----
