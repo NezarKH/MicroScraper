@@ -72,5 +72,3 @@ A utility class for building and saving CSV files.
 Khabiry
 
 ---
-
-Feel free to extend this README and documentation as needed. This should provide a good starting point for anyone looking to understand or use your project.
