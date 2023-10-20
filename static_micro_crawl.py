@@ -1,6 +1,8 @@
 import re
+from collections import Counter
 import requests
 from bs4 import BeautifulSoup
+from nltk.corpus import stopwords
 
 
 # Scrape website and get all text
@@ -44,6 +46,32 @@ def save_data(file_name, data):
     with open(file_name, "w", encoding='utf-8') as f:
         for item in data:
             f.write(f"{item}\n")
+
+
+# Clean and tokenize the text
+def clean_and_tokenize(text):
+    cleaned_text = re.sub('[^a-zA-Z\s]', '', text).lower()
+    tokens = cleaned_text.split()
+    return tokens
+
+
+# Get most common terms
+def get_most_common_terms(tokens, num_terms=10):
+    counter = Counter(tokens)
+    most_common_terms = counter.most_common(num_terms)
+    return most_common_terms
+
+
+# Remove stop words from a list of tokens
+def remove_stop_words(tokens):
+    stop_words = set(stopwords.words('english'))
+    filtered_tokens = [word for word in tokens if word not in stop_words]
+    return filtered_tokens
+
+
+# Regenerate text from a list of tokens
+def regenerate_text_from_tokens(tokens):
+    return ' '.join(tokens)
 
 
 if __name__ == "__main__":
